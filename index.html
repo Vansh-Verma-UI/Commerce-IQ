@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CommerceIQ | Analytics Dashboard</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div id="app">
+
+        <div class="dashboard">
+
+
+            <!-- Sidebar -->
+            <aside class="sidebar">
+
+                <div class="brand">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <h2>CommerceIQ</h2>
+                </div>
+
+                <p class="menu-heading">MAIN MENU</p>
+
+                <nav class="sidebar-nav">
+
+                    <a href="#" class="nav-link active" data-page="dashboard">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Dashboard</span>
+                    </a>
+
+                    <a href="#" class="nav-link" data-page="orders">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span>Orders</span>
+                    </a>
+
+                    <a href="#" class="nav-link" data-page="products">
+                        <i class="fa-solid fa-box"></i>
+                        <span>Products</span>
+                    </a>
+
+                    <a href="#" class="nav-link" data-page="customers">
+                        <i class="fa-solid fa-users"></i>
+                        <span>Customers</span>
+                    </a>
+
+                    <a href="#" class="nav-link" data-page="analytics">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <span>Analytics</span>
+                    </a>
+
+                </nav>
+
+                <a href="#" class="nav-link" data-page="settings">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Settings</span>
+                </a>
+
+            </aside>
+
+
+
+            <!-- Main Content -->
+            <main class="main-content">
+
+                <!-- Topbar -->
+                <header class="topbar">
+
+                    <div>
+                        <h1>Dashboard Overview</h1>
+                        <p>Welcome back! Here's what's happening with your store.</p>
+                    </div>
+
+                    <div class="topbar-actions">
+                        <button class="icon-button">
+                            <i class="fa-regular fa-bell"></i>
+                        </button>
+
+                        <div class="profile">
+                            <div class="profile-avatar">V</div>
+                            <div>
+                                <h4>Vansh</h4>
+                                <span>Administrator</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </header>
+
+
+                <!-- Dashboard Content -->
+
+                <section id="dashboardPage" class="page-section active">
+
+                    <div class="date-filter">
+                        <i class="fa-regular fa-calendar"></i>
+
+                        <select id="dateRange">
+                            <option value="7">Last 7 Days</option>
+                            <option value="30" selected>Last 30 Days</option>
+                            <option value="90">Last 90 Days</option>
+                            <option value="365">Last 1 Year</option>
+                            <option value="year">This Year</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+
+                    <!-- CUSTOM DATE RANGE -->
+                    <div class="custom-date-range" id="customDateRange" style="display: none;">
+
+                        <div>
+                            <label for="startDate">Start Date</label>
+                            <input type="date" id="startDate">
+                        </div>
+
+                        <div>
+                            <label for="endDate">End Date</label>
+                            <input type="date" id="endDate">
+                        </div>
+
+                        <button type="button" id="applyDateBtn">
+                            Apply
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- KPI Cards will come here -->
+
+                    <div class="kpi-grid">
+
+                        <!-- Revenue -->
+                        <div class="kpi-card">
+                            <div class="kpi-top">
+                                <div class="kpi-icon revenue-icon">
+                                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                                </div>
+                                <span class="kpi-change positive">
+                                    <i class="fa-solid fa-arrow-up"></i> 12.8%
+                                </span>
+                            </div>
+
+                            <p>Total Revenue</p>
+                            <h2 id="totalRevenue">₹2,45,800</h2>
+                            <span class="kpi-note">Compared to previous period</span>
+                        </div>
+
+
+                        <!-- Orders -->
+                        <div class="kpi-card">
+                            <div class="kpi-top">
+                                <div class="kpi-icon orders-icon">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </div>
+                                <span class="kpi-change positive">
+                                    <i class="fa-solid fa-arrow-up"></i> 8.4%
+                                </span>
+                            </div>
+
+                            <p>Total Orders</p>
+                            <h2 id="totalOrders">1,248</h2>
+                            <span class="kpi-note">Compared to previous period</span>
+                        </div>
+
+
+                        <!-- Average Order Value -->
+                        <div class="kpi-card">
+                            <div class="kpi-top">
+                                <div class="kpi-icon aov-icon">
+                                    <i class="fa-solid fa-bag-shopping"></i>
+                                </div>
+                                <span class="kpi-change positive">
+                                    <i class="fa-solid fa-arrow-up"></i> 5.2%
+                                </span>
+                            </div>
+
+                            <p>Average Order Value</p>
+                            <h2 id="averageOrderValue">₹1,968</h2>
+                            <span class="kpi-note">Compared to previous period</span>
+                        </div>
+
+
+                        <!-- Refund Rate -->
+                        <div class="kpi-card">
+                            <div class="kpi-top">
+                                <div class="kpi-icon refund-icon">
+                                    <i class="fa-solid fa-rotate-left"></i>
+                                </div>
+                                <span class="kpi-change negative">
+                                    <i class="fa-solid fa-arrow-down"></i> 1.2%
+                                </span>
+                            </div>
+
+                            <p>Refund Rate</p>
+                            <h2 id="refundRate">2.4%</h2>
+                            <span class="kpi-note">Compared to previous period</span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Charts will come here -->
+
+                    <div class="charts-grid">
+
+                        <!-- Revenue Chart -->
+                        <div class="chart-card">
+
+                            <div class="chart-header">
+                                <div>
+                                    <h3>Revenue Analytics</h3>
+                                    <p>Track your daily revenue performance</p>
+                                </div>
+
+                                <span class="chart-badge">
+                                    <i class="fa-solid fa-arrow-trend-up"></i>
+                                    Revenue
+                                </span>
+                            </div>
+
+                            <div class="chart-container">
+                                <canvas id="revenueChart"></canvas>
+                            </div>
+
+                        </div>
+
+
+                        <!-- Orders Chart -->
+                        <div class="chart-card">
+
+                            <div class="chart-header">
+                                <div>
+                                    <h3>Orders Overview</h3>
+                                    <p>Monitor your daily order volume</p>
+                                </div>
+
+                                <span class="chart-badge orders-badge">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    Orders
+                                </span>
+                            </div>
+
+                            <div class="chart-container">
+                                <canvas id="ordersChart"></canvas>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Orders Table will come here -->
+
+                    <!-- RECENT ORDERS SECTION -->
+
+                    <div class="orders-section">
+
+                        <div class="orders-header">
+
+                            <div>
+                                <h3>Recent Orders</h3>
+                                <p>Manage and monitor your latest orders</p>
+                            </div>
+
+                            <button class="export-button" id="exportBtn">
+                                <i class="fa-solid fa-download"></i>
+                                Export CSV
+                            </button>
+
+                        </div>
+
+
+                        <!-- Search and Filter -->
+                        <div class="orders-toolbar">
+
+                            <div class="search-box">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+
+                                <input type="text" id="searchInput" placeholder="Search order, customer or product...">
+                            </div>
+
+                            <select id="statusFilter">
+                                <option value="all">All Status</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Cancelled">Cancelled</option>
+                                <option value="Refunded">Refunded</option>
+                            </select>
+
+                        </div>
+
+
+                        <!-- Orders Table -->
+
+                        <div class="table-container">
+
+                            <table class="orders-table">
+
+                                <thead>
+                                    <tr>
+                                        <th>ORDER ID</th>
+                                        <th>CUSTOMER</th>
+                                        <th>PRODUCT</th>
+                                        <th>DATE</th>
+                                        <th>AMOUNT</th>
+                                        <th>PAYMENT</th>
+                                        <th>STATUS</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="ordersTableBody">
+                                    <!-- JavaScript will add orders here -->
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+                        <div class="table-footer">
+                            <span id="orderCount">Showing 0 orders</span>
+                        </div>
+
+                    </div>
+
+
+                    <div class="charts-grid">
+
+                        <!-- Order Status Chart -->
+                        <div class="chart-card">
+
+                            <div class="chart-header">
+                                <div>
+                                    <h3>Orders by Status</h3>
+                                    <p>Distribution of your order statuses</p>
+                                </div>
+
+                                <span class="chart-badge">
+                                    <i class="fa-solid fa-chart-pie"></i>
+                                    Status
+                                </span>
+                            </div>
+
+                            <div class="chart-container">
+                                <canvas id="statusChart"></canvas>
+                            </div>
+
+                        </div>
+
+
+                        <!-- Top Products Chart -->
+                        <div class="chart-card">
+
+                            <div class="chart-header">
+                                <div>
+                                    <h3>Top Products</h3>
+                                    <p>Products generating the highest revenue</p>
+                                </div>
+
+                                <span class="chart-badge orders-badge">
+                                    <i class="fa-solid fa-box"></i>
+                                    Products
+                                </span>
+                            </div>
+
+                            <div class="chart-container">
+                                <canvas id="productsChart"></canvas>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </section>
+                <!-- ORDERS PAGE -->
+                <section id="ordersPage" class="page-section">
+
+                    <div class="orders-page-header">
+                        <div>
+                            <h2>All Orders</h2>
+                            <p>Manage, track and monitor all your store orders.</p>
+                        </div>
+
+                        <button class="export-button" id="allOrdersExportBtn">
+                            <i class="fa-solid fa-download"></i>
+                            Export Orders
+                        </button>
+                    </div>
+
+                    <!-- Orders Summary -->
+                    <div class="orders-summary">
+
+                        <div class="summary-card">
+                            <span>Total Orders</span>
+                            <h3 id="allTotalOrders">0</h3>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Delivered</span>
+                            <h3 id="allDeliveredOrders">0</h3>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Pending</span>
+                            <h3 id="allPendingOrders">0</h3>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Cancelled</span>
+                            <h3 id="allCancelledOrders">0</h3>
+                        </div>
+
+                    </div>
+
+                    <!-- Orders Filters -->
+                    <div class="orders-section">
+
+                        <div class="orders-toolbar">
+
+                            <div class="search-box">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="allOrdersSearch"
+                                    placeholder="Search order, customer or product...">
+                            </div>
+
+                            <select id="allOrdersStatus">
+                                <option value="all">All Status</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Cancelled">Cancelled</option>
+                                <option value="Refunded">Refunded</option>
+                            </select>
+
+                        </div>
+
+                        <!-- All Orders Table -->
+                        <div class="table-container">
+
+                            <table class="orders-table">
+
+                                <thead>
+                                    <tr>
+                                        <th>ORDER ID</th>
+                                        <th>CUSTOMER</th>
+                                        <th>PRODUCT</th>
+                                        <th>DATE</th>
+                                        <th>AMOUNT</th>
+                                        <th>PAYMENT</th>
+                                        <th>STATUS</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="allOrdersTableBody"></tbody>
+
+                            </table>
+
+                        </div>
+
+                        <div class="table-footer">
+                            <span id="allOrdersCount">Showing 0 orders</span>
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- =====================================
+     PRODUCTS MANAGEMENT PAGE
+===================================== -->
+
+                <section id="productsPage" class="page-section">
+
+                    <!-- Page Header -->
+                    <div class="orders-page-header">
+                        <div>
+                            <h2>Products Management</h2>
+                            <p>Manage your store products and inventory.</p>
+                        </div>
+
+                        <button class="primary-btn" id="addProductBtn">
+                            <i class="fa-solid fa-plus"></i>
+                            Add Product
+                        </button>
+                    </div>
+
+
+                    <!-- Product Summary -->
+                    <div class="orders-summary">
+
+                        <div class="summary-card">
+                            <span>Total Products</span>
+                            <h3 id="totalProducts">0</h3>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Active Products</span>
+                            <h3 id="activeProducts">0</h3>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Out of Stock</span>
+                            <h3 id="outOfStockProducts">0</h3>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Total Categories</span>
+                            <h3 id="totalCategories">0</h3>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Products Table -->
+                    <div class="orders-section">
+
+                        <!-- Toolbar -->
+                        <div class="orders-toolbar">
+
+                            <div class="search-box">
+                                <i class="fa-solid fa-search"></i>
+
+                                <input type="text" id="productSearch" placeholder="Search products...">
+                            </div>
+
+                            <select id="productCategoryFilter">
+                                <option value="all">All Categories</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Accessories">Accessories</option>
+                                <option value="Computers">Computers</option>
+                                <option value="Home Appliances">Home Appliances</option>
+                                <option value="Gaming">Gaming</option>
+                            </select>
+
+                        </div>
+
+
+                        <!-- Table -->
+                        <div class="table-container">
+
+                            <table class="orders-table">
+
+                                <thead>
+                                    <tr>
+                                        <th>Product ID</th>
+                                        <th>Product Name</th>
+                                        <th>Category</th>
+                                        <th>Price</th>
+                                        <th>Stock</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="productsTableBody">
+                                    <!-- Products will be added using JavaScript -->
+                                </tbody>
+
+                            </table>
+
+                        </div>
+
+
+                        <!-- Footer -->
+                        <div class="table-footer">
+                            <span id="productsCount">Showing 0 products</span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Add / Edit Product Modal -->
+                    <div class="modal-overlay" id="productModal">
+
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h2 id="productModalTitle">Add New Product</h2>
+
+                                <button id="closeProductModal">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+
+
+                            <form id="productForm">
+
+                                <input type="hidden" id="productId">
+
+                                <div class="form-group">
+                                    <label for="productName">Product Name</label>
+
+                                    <input type="text" id="productName" placeholder="Enter product name" required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="productCategory">Category</label>
+
+                                    <select id="productCategory" required>
+                                        <option value="">Select Category</option>
+                                        <option value="Electronics">Electronics</option>
+                                        <option value="Accessories">Accessories</option>
+                                        <option value="Computers">Computers</option>
+                                        <option value="Home Appliances">Home Appliances</option>
+                                        <option value="Gaming">Gaming</option>
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="productPrice">Price (₹)</label>
+
+                                    <input type="number" id="productPrice" placeholder="Enter product price" min="1"
+                                        required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="productStock">Stock Quantity</label>
+
+                                    <input type="number" id="productStock" placeholder="Enter stock quantity" min="0"
+                                        required>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label for="productStatus">Product Status</label>
+
+                                    <select id="productStatus" required>
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">Inactive</option>
+                                    </select>
+                                </div>
+
+                                <div class="modal-actions">
+
+                                    <button type="button" id="cancelProductBtn">
+                                        Cancel
+                                    </button>
+
+                                    <button type="submit" class="primary-btn" id="saveProductBtn">
+                                        <i class="fa-solid fa-plus"></i>
+                                        Save Product
+                                    </button>
+
+                                </div>
+
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </section>
+                <section id="customersPage" class="page-section">
+
+                    <div class="page-header">
+                        <div>
+                            <h2>Customers</h2>
+                            <p>Manage and monitor your customers</p>
+                        </div>
+
+                        <button class="primary-btn" id="addCustomerBtn">
+                            <i class="fa-solid fa-plus"></i>
+                            Add Customer
+                        </button>
+                    </div>
+
+                    <div class="orders-summary">
+
+                        <div class="summary-card">
+                            <p>Total Customers</p>
+                            <h3 id="totalCustomers">0</h3>
+                        </div>
+
+                        <div class="summary-card">
+                            <p>Active Customers</p>
+                            <h3 id="activeCustomers">0</h3>
+                        </div>
+
+                        <div class="summary-card">
+                            <p>New Customers</p>
+                            <h3 id="newCustomers">0</h3>
+                        </div>
+
+                    </div>
+
+                    <div class="table-container">
+
+                        <div class="table-header">
+                            <h3>All Customers</h3>
+
+                            <div class="table-filters">
+
+                                <input type="text" id="customerSearch" placeholder="Search customers...">
+
+                                <select id="customerStatusFilter">
+                                    <option value="all">All Status</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+
+                            <table class="orders-table">
+                                <thead>
+                                    <tr>
+                                        <th>Customer ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Total Orders</th>
+                                        <th>Total Spent</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="customersTableBody"></tbody>
+
+                            </table>
+
+                        </div>
+
+                        <div class="table-footer">
+                            <p id="customersCount">Showing 0 customers</p>
+                        </div>
+
+                    </div>
+
+                </section>
+                <!-- ANALYTICS PAGE -->
+                <section id="analyticsPage" class="page-section">
+
+                    <div class="orders-page-header">
+                        <div>
+                            <h2>Business Analytics</h2>
+                            <p>Track performance, revenue and customer insights.</p>
+                        </div>
+
+                        <button class="export-button" id="exportAnalyticsBtn">
+                            <i class="fa-solid fa-download"></i>
+                            Export Report
+                        </button>
+                    </div>
+
+                    <div class="analytics-filter">
+                        <label for="analyticsDateRange">Date Range</label>
+
+                        <select id="analyticsDateRange">
+                            <option value="all">All Time</option>
+                            <option value="7">Last 7 Days</option>
+                            <option value="30" selected>Last 30 Days</option>
+                            <option value="90">Last 90 Days</option>
+                            <option value="365">Last 1 Year</option>
+                        </select>
+                    </div>
+
+                    <!-- ANALYTICS SUMMARY -->
+                    <div class="analytics-summary">
+
+                        <div class="summary-card">
+                            <span>Total Revenue</span>
+                            <h3 id="analyticsRevenue">₹0</h3>
+                            <small>Overall sales performance</small>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Total Orders</span>
+                            <h3 id="analyticsOrders">0</h3>
+                            <small>All recorded orders</small>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Average Order Value</span>
+                            <h3 id="analyticsAOV">₹0</h3>
+                            <small>Revenue per order</small>
+                        </div>
+
+                        <div class="summary-card">
+                            <span>Total Customers</span>
+                            <h3 id="analyticsCustomers">0</h3>
+                            <small>Registered customers</small>
+                        </div>
+
+                    </div>
+
+                    <!-- ANALYTICS CHARTS -->
+                    <div class="analytics-grid">
+
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <div>
+                                    <h3>Revenue Trends</h3>
+                                    <p>Monthly revenue performance</p>
+                                </div>
+                                <span class="chart-badge">Revenue</span>
+                            </div>
+
+                            <div class="chart-container">
+                                <canvas id="analyticsRevenueChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <div>
+                                    <h3>Category Performance</h3>
+                                    <p>Sales distribution by category</p>
+                                </div>
+                                <span class="chart-badge orders-badge">Categories</span>
+                            </div>
+
+                            <div class="chart-container">
+                                <canvas id="categoryChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <div>
+                                    <h3>Payment Analysis</h3>
+                                    <p>Payment status distribution</p>
+                                </div>
+                                <span class="chart-badge">Payments</span>
+                            </div>
+
+                            <div class="chart-container">
+                                <canvas id="paymentChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="chart-card">
+                            <div class="chart-header">
+                                <div>
+                                    <h3>Monthly Orders</h3>
+                                    <p>Order volume over time</p>
+                                </div>
+                                <span class="chart-badge orders-badge">Orders</span>
+                            </div>
+
+                            <div class="chart-container">
+                                <canvas id="monthlyOrdersChart"></canvas>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                <div class="modal-overlay" id="customerModal">
+
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h3 id="customerModalTitle">Add Customer</h3>
+
+                            <button type="button" id="closeCustomerModal">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+
+                        <form id="customerForm">
+
+                            <input type="hidden" id="customerId">
+
+                            <div class="form-group">
+                                <label>Customer Name</label>
+                                <input type="text" id="customerName" required placeholder="Enter customer name">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" id="customerEmail" required placeholder="Enter email address">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" id="customerPhone" required pattern="[0-9]{10}" maxlength="10"
+                                    placeholder="Enter 10 digit phone number">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Customer Status</label>
+                                <select id="customerStatus" required>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+
+                            <div class="modal-actions">
+
+                                <button type="button" id="cancelCustomerBtn">
+                                    Cancel
+                                </button>
+
+                                <button type="submit" class="primary-btn" id="saveCustomerBtn">
+                                    <i class="fa-solid fa-plus"></i>
+                                    Save Customer
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+                <!-- SETTINGS PAGE -->
+                <section id="settingsPage" class="page-section">
+
+                    <div class="page-header">
+                        <h2>Settings</h2>
+                        <p>Manage your account and preferences.</p>
+                    </div>
+
+                    <!-- Profile Settings -->
+                    <div class="settings-card">
+                        <h3>Profile Information</h3>
+
+                        <div class="settings-form">
+                            <div class="form-group">
+                                <label for="settingsName">Full Name</label>
+                                <input type="text" id="settingsName" placeholder="Enter your name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="settingsEmail">Email Address</label>
+                                <input type="email" id="settingsEmail" placeholder="Enter your email">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Appearance -->
+                    <div class="settings-card">
+                        <h3>Appearance</h3>
+
+                        <div class="settings-option">
+                            <div>
+                                <strong>Dark Mode</strong>
+                                <p>Enable dark theme for your dashboard.</p>
+                            </div>
+
+                            <input type="checkbox" id="darkModeToggle">
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="settings-card">
+                        <h3>Notifications</h3>
+
+                        <div class="settings-option">
+                            <div>
+                                <strong>Email Notifications</strong>
+                                <p>Receive important updates through email.</p>
+                            </div>
+
+                            <input type="checkbox" id="emailNotifications" checked>
+                        </div>
+                    </div>
+
+                    <button id="saveSettingsBtn" class="btn-primary">
+                        Save Changes
+                    </button>
+
+                </section>
+            </main>
+
+        </div>
+
+        <!-- Dashboard will be created here -->
+        <!-- ORDER DETAILS MODAL -->
+        <div class="modal-overlay" id="orderModal">
+
+            <div class="order-modal">
+
+                <div class="modal-header">
+                    <div>
+                        <h2>Order Details</h2>
+                        <p>Complete information about this order</p>
+                    </div>
+
+                    <button class="close-modal" id="closeModal">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="modal-body" id="modalContent">
+                    <!-- JavaScript will add order details here -->
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="index.js"></script>
+
+</body>
+
+</html>
